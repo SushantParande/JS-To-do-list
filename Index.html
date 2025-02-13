@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do list</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen">
+    <div class="w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold text-center mb-4">📌 To-Do List</h1>
+        <div class="flex">
+            <input type="text" name="" id="taskInput" class="flex-1 px-3 py-2 text-black rounded-1-lg focus:outline-none" placeholder="add a new taks...">
+            <button onclick="addTask()" class="bg-green-500 px-4 py-2 rounded-r-lg hover:bg-green-600">Add</button>
+        </div>
+        <ul id="taskList" class="mt-4 space-y-2">
+            <!-- task will be added here dynamically-->
+        </ul>
+    </div>
+</body>
+<script>
+    function addTask(){
+        let taskInput = document.getElementById("taskInput")
+        let taskText = taskInput.value.trim();
+
+        if(taskText === ""){
+            alert("please enter valid task ");
+            return;
+        }
+
+        let taskList = document.getElementById("taskList");
+
+        let li = document.createElement("li");
+        li.className = "flex items-center justify-between bg-gray-700 p-2 rounded-lg";
+
+        let span = document.createElement("span");
+        span.textContent = taskText;
+        span.className = "flex-1 cursor-pointer ";
+        span.onclick = function(){
+            this.classList.toggle("line-through");
+        }
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "❌";
+        deleteBtn.className = " text-red-400 hover:text-red-600 ml-4";
+        deleteBtn.onclick = function (){
+            taskList.removeChild(li);
+        }
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        taskList.appendChild(li);
+
+        taskInput.value = "";
+    }
+</script>
+</html>
